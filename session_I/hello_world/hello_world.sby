@@ -1,0 +1,19 @@
+[tasks]
+precondition 
+check
+
+[options]
+precondition: mode cover
+check: mode prove
+
+[engines]
+precondition: smtbmc
+check: smtbmc
+
+[script]
+read -sv  hello_world.sv
+verific -import -autocover hello_world
+prep -top hello_world
+
+[files]
+hello_world.sv
