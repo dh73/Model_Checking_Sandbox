@@ -1,0 +1,19 @@
+[tasks]
+precondition 
+check
+
+[options]
+precondition: mode cover
+check: mode prove
+
+[engines]
+precondition: smtbmc
+check: smtbmc
+
+[script]
+read -sv  booth_multiplier.sv
+verific -import -autocover booth_multiplier
+prep -top booth_multiplier
+
+[files]
+booth_multiplier.sv
