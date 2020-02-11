@@ -1,0 +1,2 @@
+-y $VIVADO_ROOT/2019.2/ids_lite/ISE/verilog/xeclib/unisims
+top_vivado_syn.v

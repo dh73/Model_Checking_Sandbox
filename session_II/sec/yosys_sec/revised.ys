@@ -1,0 +1,17 @@
+# TODO: Find a smarter way to read xeclib
+read_verilog /opt/eda/fpga/Xilinx/Vitis/Vivado/2019.2/ids_lite/ISE/verilog/xeclib/unisims/IBUF.v
+read_verilog /opt/eda/fpga/Xilinx/Vitis/Vivado/2019.2/ids_lite/ISE/verilog/xeclib/unisims/FDRE.v
+read_verilog /opt/eda/fpga/Xilinx/Vitis/Vivado/2019.2/ids_lite/ISE/verilog/xeclib/unisims/OBUF.v
+read_verilog /opt/eda/fpga/Xilinx/Vitis/Vivado/2019.2/ids_lite/ISE/verilog/xeclib/unisims/LUT4.v
+read_verilog /opt/eda/fpga/Xilinx/Vitis/Vivado/2019.2/ids_lite/ISE/verilog/xeclib/unisims/LUT3.v
+read_verilog /opt/eda/fpga/Xilinx/Vitis/Vivado/2019.2/ids_lite/ISE/verilog/xeclib/unisims/LUT2.v
+read_verilog /opt/eda/fpga/Xilinx/Vitis/Vivado/2019.2/ids_lite/ISE/verilog/xeclib/unisims/LUT1.v
+read_verilog /opt/eda/fpga/Xilinx/Vitis/Vivado/2019.2/ids_lite/ISE/verilog/xeclib/unisims/INV.v
+read_verilog /opt/eda/fpga/Xilinx/Vitis/Vivado/2019.2/ids_lite/ISE/verilog/xeclib/unisims/BUFG.v
+read_verilog /opt/eda/fpga/Xilinx/Vitis/Vivado/2019.2/ids_lite/ISE/verilog/xeclib/unisims/VCC.v
+read_verilog /opt/eda/fpga/Xilinx/Vitis/Vivado/2019.2/ids_lite/ISE/verilog/xeclib/unisims/CARRY4.v
+# Revised 
+read_verilog top_syn.v
+prep -flatten -top top
+splitnets -ports
+design -stash gate

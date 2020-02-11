@@ -1,0 +1,13 @@
+[options]
+mode prove
+depth 12
+
+[engines]
+smtbmc
+
+[script]
+read -sv  timer.sv
+prep -top timer
+
+[files]
+timer.sv

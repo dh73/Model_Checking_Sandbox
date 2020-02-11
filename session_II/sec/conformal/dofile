@@ -1,0 +1,21 @@
+set rule handling HRC3.3 -ignore
+add search path $VIVADO_ROOT/2019.2/ids_lite/ISE/verilog/xeclib/unisims/ -design -Both
+
+read design -file golden.vc -verilog -golden -replace
+read design -file revised.vc -verilog -revised -replace
+
+set flatten model -seq_constant
+set flatten model -all_seq_merge
+set flatten model -self_seq_merge
+
+//Connect GSR and GTS to 0(GND)
+add tied signal 0 glbl.GSR -rev
+add tied signal 0 glbl.GTS -rev
+add renaming rule r1 "_Z" "" -Golden
+
+set mapping method -nets
+
+set system mode lec
+add compared points -all
+compare
+set system mode setup

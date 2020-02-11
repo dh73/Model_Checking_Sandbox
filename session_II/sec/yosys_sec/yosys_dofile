@@ -1,0 +1,10 @@
+script golden.ys
+script revised.ys
+design -copy-from gold -as gold top
+design -copy-from gate -as gate top
+equiv_make gold gate equiv
+hierarchy -top equiv
+clean -purge
+equiv_induct -seq 5
+equiv_status -assert
+show
