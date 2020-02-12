@@ -1,0 +1,12 @@
+[options]
+mode cover
+
+[engines]
+smtbmc
+
+[script]
+read -sv gp_timer.sv
+prep -top gp_timer
+
+[files]
+gp_timer.sv

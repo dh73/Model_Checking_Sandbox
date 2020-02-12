@@ -1,0 +1,13 @@
+[options]
+mode prove
+
+[engines]
+smtbmc
+
+[script]
+read -sv
+counter_formal.sv
+prep -top counter_formal
+
+[files]
+counter_formal.sv

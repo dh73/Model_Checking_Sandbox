@@ -1,0 +1,16 @@
+[options]
+mode cover
+
+[engines]
+smtbmc
+
+[script]
+read -sv pipe_pkg.sv
+read -sv gp_timer.sv
+read -sv detect.sv
+prep -top detect
+
+[files]
+pipe_pkg.sv
+detect.sv
+gp_timer.sv
