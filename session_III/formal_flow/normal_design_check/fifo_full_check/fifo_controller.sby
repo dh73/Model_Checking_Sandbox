@@ -1,0 +1,21 @@
+[tasks]
+precondition 
+check
+
+[options]
+precondition: mode cover
+check: mode prove
+
+[engines]
+precondition: smtbmc
+check: smtbmc
+
+[script]
+read -sv  fifo_controller.sv
+read -sv  fifo_chk.sv
+verific -import -autocover fifo_controller 
+prep -top fifo_controller
+
+[files]
+fifo_chk.sv
+fifo_controller.sv
