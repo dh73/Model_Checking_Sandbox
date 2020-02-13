@@ -1,0 +1,12 @@
+[options]
+mode cover
+
+[engines]
+smtbmc
+
+[script]
+read -sv booth_mult.sv
+prep -top booth_mult
+
+[files]
+booth_mult.sv

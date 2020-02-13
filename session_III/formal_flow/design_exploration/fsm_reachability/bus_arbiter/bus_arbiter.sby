@@ -1,0 +1,12 @@
+[options]
+mode cover
+
+[engines]
+smtbmc
+
+[script]
+read -sv bus_arbiter.sv
+prep -top bus_arbiter
+
+[files]
+bus_arbiter.sv

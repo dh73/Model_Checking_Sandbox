@@ -1,0 +1,14 @@
+[options]
+mode cover
+
+[engines]
+smtbmc
+
+[script]
+read -sv pwm_avalon_top.sv
+read -sv pwm_core.sv
+prep -top pwm_avalon_top
+
+[files]
+pwm_avalon_top.sv
+pwm_core.sv
