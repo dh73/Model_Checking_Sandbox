@@ -26,10 +26,20 @@ jobs:
             'https://release-assets.githubusercontent.com/github-production-release-asset/1330112647/d6e58e74-5423-4857-b825-aea795f0d5e1?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-08-14T11%3A29%3A01Z&rscd=attachment%3B+filename%3Deducational-rvv-final-source.tar.gz.enc&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-08-14T10%3A28%3A50Z&ske=2026-08-14T11%3A29%3A01Z&sks=b&skv=2018-11-09&sig=spS3vCj5UHN6pqv7ljQpL%2Fmfa5QO3O%2FSoMZq21YUXN4%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4NjcwMzkxNywibmJmIjoxNzg2NzAzNjE3LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.bBPd2nrxdqyPVxGdEO4W86rn_utPtgzLlJE1sAyueVY&response-content-disposition=attachment%3B%20filename%3Deducational-rvv-final-source.tar.gz.enc&response-content-type=application%2Foctet-stream' \
             -o relay/educational-rvv-final-source.tar.gz.enc
           echo '2f5f72bfe2dc0899fcca000eaf44ab885562bb2e10e05bb3d21fb8bb3c66b933  relay/educational-rvv-final-source.tar.gz.enc' | sha256sum -c -
-      - name: Commit encrypted relay payload
+      - name: Upload encrypted archive for local formal execution
+        uses: actions/upload-artifact@v4
+        with:
+          name: rvv-encrypted-source
+          path: relay/educational-rvv-final-source.tar.gz.enc
+          if-no-files-found: error
+          retention-days: 1
+      - name: Keep encrypted relay branch reproducible
         shell: bash
         run: |
           set -euo pipefail
+          if git diff --quiet -- relay/educational-rvv-final-source.tar.gz.enc && git ls-files --error-unmatch relay/educational-rvv-final-source.tar.gz.enc >/dev/null 2>&1; then
+            exit 0
+          fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add relay/educational-rvv-final-source.tar.gz.enc
